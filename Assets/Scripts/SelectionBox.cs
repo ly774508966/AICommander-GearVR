@@ -55,6 +55,9 @@ public class SelectionBox : MonoBehaviour {
 
 	/// Sets all currently selected units to unselected and creates a fresh empty inner list
 	public void ResetSelection (){
+		if(selectedUnits.Count <= 0){
+			return;
+		}
 		foreach(Unit unit in selectedUnits){
 			// Do something to all selected units
 			unit.SelectedBox (false);
@@ -67,6 +70,18 @@ public class SelectionBox : MonoBehaviour {
 	/// Returns the inner list
 	public List<Unit> GetSelectedUnits (){
 		return selectedUnits;
+	}
+
+	/// Returns the inner list
+	public void SetSelectedUnits (List<Unit> toSelect){
+		if (toSelect == null) {
+			ResetSelection ();
+			return;
+		}
+		selectedUnits = toSelect;
+		foreach(Unit unit in selectedUnits){
+			unit.SelectedBox (true);
+		}
 	}
 
 	/// Set unit to selected and add it to the selected list

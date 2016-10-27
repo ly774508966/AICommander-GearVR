@@ -17,16 +17,25 @@ public class Keyboard {
 		z = 0;
 
 		// Gather input data
-		if (Input.GetAxis ("Horizontal") > 0) {
-			x = moveAmount;
-		} else if (Input.GetAxis ("Horizontal") < 0) {
-			x = -moveAmount;
-		}
+		#if UNITY_EDITOR
 		if (Input.GetAxis ("Vertical") > 0) {
 			z = -moveAmount;
 		} else if (Input.GetAxis ("Vertical") < 0) {
 			z = moveAmount;
 		}
+		if (Input.GetAxis ("Horizontal") > 0) {
+			x = moveAmount;
+		} else if (Input.GetAxis ("Horizontal") < 0) {
+			x = -moveAmount;
+		}
+		#else
+		if (Input.GetAxis ("Vertical") < 0 || Input.GetAxis ("Vertical") > 0) {
+			z = Input.GetAxis ("Vertical") / 3;
+		} 
+		if (Input.GetAxis ("Horizontal") > 0 || Input.GetAxis ("Horizontal") < 0) {
+			x = Input.GetAxis ("Horizontal") / 3;
+		}
+		#endif
 
 		// Check for esc button
 		if(Input.GetButtonUp("Cancel")){

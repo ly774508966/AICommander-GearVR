@@ -1,4 +1,4 @@
-﻿using UnityEngine;
+﻿using UnityEngine;using UnityEngine.UI;
 using System.Collections;
 
 public class Mouse {
@@ -11,6 +11,9 @@ public class Mouse {
 	/// ACLICKDOWN, ACLICKING, ACLICKUP, NULL
 	public enum ClickAction
 	{
+		TOUCHDOWN,
+		TOUCHING,
+		TOUCHUP, 
 		CLICKDOWN,
 		CLICKING,
 		CLICKUP, 
@@ -50,6 +53,12 @@ public class Mouse {
 			cAct = ClickAction.ACLICKING;
 		} else if (Input.GetButtonUp ("Fire2")) {
 			cAct = ClickAction.ACLICKUP;
+		} else if (Input.GetButtonDown ("Fire3")) {
+			cAct = ClickAction.TOUCHDOWN;
+		} else if (Input.GetButton ("Fire3")) {
+			cAct = ClickAction.TOUCHING;
+		} else if (Input.GetButtonUp ("Fire3")) {
+			cAct = ClickAction.TOUCHUP;
 		} else {
 			cAct = ClickAction.NULL;
 		}
@@ -59,9 +68,11 @@ public class Mouse {
 	public void DoubleClick(){
 		float thisTime = Time.time;
 		if (thisTime < clickLastTime + 0.5f) {
-			Debug.Log("Double Click");
+			//Debug.Log ("Double Click");
+			clickLastTime = -1;
+		} else {
+			clickLastTime = thisTime;
 		}
-		clickLastTime = thisTime;
 	} 
 	
 }
